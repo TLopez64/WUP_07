@@ -25,31 +25,57 @@ Some of the data was uncoded for sex - sex must be just male or female
 77 of the data entries were coded sex  as blank, so we omit these.
 state of a patient must be died or alive - we adjust that as well   
   
+```{r}
+str(kRdata)
+```
+
+
 # Your Question - Is dying independent of sex?
 
+$H_0$ There is no difference in dying based on sex
 
+$H_A$ There is a difference in dying based on sex
 
+## Method
 
+The variable sex is categorical and the variable results are categorical, so therefore we use cat~cat.
 
+## Results
 
 ## Graphical results - use ggplot commands to do this  
 
+```{r}
+dd2 <- kRdata %>% group_by(result,Sex) %>% 
+summarize(count=n()) %>% mutate(prcnt=count/sum(count))
 
+basicC <- ggplot(dd2,aes(x=Sex,y=count,fill=result))
+basicC + geom_bar(stat="identity",position="dodge")
 
-  
+basicC <- ggplot(dd2,aes(x=Sex,y=prcnt*100,fill=result)) 
+basicC + geom_bar(stat="identity", position = "dodge")
+```
 
-
-
-
-
+This bar chart shows the percentage of male and female who died from covid, and shows people who had it but are still alive.
   
 ## Numerical results
 
+```{r}
+table1 <- xtabs(~result + Sex, data=kRdata)
+rowPerc(table1)
+colPerc(table1)
+```
+
+This table shows the percentage of male and female who had covid that is alive and the percentage of who died. Male survivors percentage is 44% and the female survivors is 56%.
 
 ## Inferential results 
 
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
 
-
+This table shows the p value in the chi-square stat, which is 0.0012. The p value in the fisher test, which is 0.0009. Therefore we reject both null hypothesis.
 
 ## Conclusions
 
