@@ -79,3 +79,4 @@ This table shows the p value in the chi-square stat, which is 0.0012. The p valu
 
 ## Conclusions
 
+The question is "Is dying the Independent of Sex. In conclusion more females that stayed alive during covid than males. Males were more prone to getting covid. The p value was 0.0012 and 0.0009, which we reject the null hypothesis.
